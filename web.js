@@ -76,7 +76,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(email, done) {
-  User.findOne( { email: email } , function (err, user) {
+   findOne( { email: email } , function (err, user) {
     done(err, user);
   });
 });
