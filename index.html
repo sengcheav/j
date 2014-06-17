@@ -36,6 +36,7 @@
 <script>
 $(document.Ready(function() {
 	$("#sendButton").bind("click", function (event, ui){
+		var url =http://stark-sea-8865.herokuapp.com;
 		//var username = $("#name").val();
 		//var password =$("#password").val();
 		 var fd = new FormData();
@@ -43,6 +44,8 @@ $(document.Ready(function() {
 		 fd.append('password', password);
 		  var xhr = new XMLHttpRequest();
 		  xhr.send(fd);
+		  
+		  $.get(url);
 	})
 
  } ))
