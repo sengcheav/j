@@ -39,7 +39,7 @@ app.get('/' , function(req, res){
   });
   
   
-  /*
+  
   var u = "sengcheav@yahoo.com";
   var pass = "pass";
  app.get('/3', function (req,res){
@@ -114,7 +114,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-  */
+  
 
 
 app.listen(port, function() {
