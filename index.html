@@ -22,18 +22,33 @@
 		<form action="/login" method="post">
 		    <div>
 		        <label>Username:</label>
-		        <input type="text" name="username" id="name"/>
+		        <input type="text" name="username" id="name" placeholder="Username"/>
 		    </div>
 		    <div>
 		        <label>Password:</label>
-		        <input type="password" name="password" id= "pass"/>
+		        <input type="password" name="password" id= "password" placeholder="Password"/>
 		    </div>
 		    <div>
-		        <input type="submit" value="Log In"/>
+		        <input type="submit" value="Log In" id ="button"/>
 		    </div>
 		</form> 
 		 
-		 
+<script>
+$(document.Ready(function() {
+	$("#sendButton").bind("click", function (event, ui){
+		//var username = $("#name").val();
+		//var password =$("#password").val();
+		 var fd = new FormData();
+		 fd.append('username', username);
+		 fd.append('password', password);
+		  var xhr = new XMLHttpRequest();
+		  xhr.send(fd);
+	})
+
+ } ))
+
+
+</script>		 
 		 
 		 
 		 
@@ -41,13 +56,3 @@
 		  
 	</div>	  
 	
-	
-	
-	
-	
-	
-	
-	
-	
- </body>	
-
