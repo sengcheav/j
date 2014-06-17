@@ -36,17 +36,19 @@
 <script>
 $(document.Ready(function() {
 	$("#sendButton").bind("click", function (event, ui){
-		var url =http://stark-sea-8865.herokuapp.com;
-		//var username = $("#name").val();
-		//var password =$("#password").val();
-		 var fd = new FormData();
-		 fd.append('username', username);
-		 fd.append('password', password);
-		  var xhr = new XMLHttpRequest();
-		  xhr.send(fd);
+		var url =http://stark-sea-8865.herokuapp.com/login;
+		var username = $("#name").val();
+		var password =$("#password").val();
+		
+		$.post(url, username, passworld, 'json');
+		 //var fd = new FormData();
+		 //fd.append('username', username);
+		 //fd.append('password', password);
+		  //var xhr = new XMLHttpRequest();
+		  //xhr.send(fd);
 		  
-		  $.get(url);
-	})
+		 // $.get(url);
+	});
 
  } ))
 
