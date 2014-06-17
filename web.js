@@ -1,5 +1,5 @@
 var express = require('express')
-  , app = express.createServer(express.logger())
+  , app = express() //.createServer(express.logger())
   , pg = require('pg').native
   , connectionString = process.env.DATABASE_URL
   , start = new Date()
