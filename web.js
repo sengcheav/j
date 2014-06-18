@@ -16,21 +16,23 @@ var express = require('express')
 //var app = http.createServer(app1);
 client = new pg.Client(connectionString);
 client.connect();
-
-  
 app.use(express.logger());  
+  app.use(express.static(__dirname));
+
 app.use(express.cookieParser()); //just for auth
   // make express handle JSON and other requests
 app.use(express.bodyParser());
 // // serve up files from this directory 
-app.use(express.static(__dirname));
-// // if not able to serve up a static file try and handle as REST invocation
-app.use(app.router);
+
+
 // for passport
 
 app.use(express.session({ secret: 'SECRET' }));
 app.use(passport.initialize());
 app.use(passport.session());
+// // if not able to serve up a static file try and handle as REST invocation
+app.use(app.router);
+
 
 
 app.get('/' , function(req, res){
