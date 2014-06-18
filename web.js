@@ -18,7 +18,8 @@ client = new pg.Client(connectionString);
 client.connect();
 
   
-  
+app.use(express.logger());  
+app.use(express.cookieParser()); //just for auth
   // make express handle JSON and other requests
 app.use(express.bodyParser());
 // // serve up files from this directory 
@@ -26,10 +27,11 @@ app.use(express.static(__dirname));
 // // if not able to serve up a static file try and handle as REST invocation
 app.use(app.router);
 // for passport
-app.use(express.cookieParser()); //just for auth
+
 app.use(express.session({ secret: 'SECRET' }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.get('/' , function(req, res){
    res.sendfile('testinghtml.html');
@@ -97,7 +99,7 @@ passport.deserializeUser(function(username, done) {
 
 
 
-app.post('/', function(req, res, next) {
+app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
     if (err) { return next(err) }
     if (!user) {
