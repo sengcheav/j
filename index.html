@@ -106,8 +106,8 @@ app.post('/login', function(req, res, next) {
     if (err) { return next(err) }
     if (!user) {
       req.session.messages =  [info.message];
-      console.log("nooooo"); alert ('say no');
-	  	  return res.redirect('/login')
+      console.log("nooooo"); //alert ('say no');
+	  	  return res.redirect('/login');
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
