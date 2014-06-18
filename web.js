@@ -97,12 +97,13 @@ passport.deserializeUser(function(username, done) {
 
 
 
-app.post('/login', function(req, res, next) {
+app.post('/logi', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
     if (err) { return next(err) }
     if (!user) {
       req.session.messages =  [info.message];
-      return res.redirect('/login')
+      console.log("nooooo"); 
+	  return res.redirect('/')
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
