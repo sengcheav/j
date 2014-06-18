@@ -87,11 +87,11 @@ passport.deserializeUser(function(username, done) {
     findOne( username, function(err, user) {
     if (err) { return done(err); }
     if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-    comparePassword(username , password, function(err, isMatch) {
-      if (err) return done(err);
+    //comparePassword(username , password, function(err, isMatch) {
+      //if (err) return done(err);
       if(!password(user, password)){return done(null, false, { message: 'Invalid password' });}
       else { return done(null , user);} 
-    });
+    //});
   });
 }));
 
