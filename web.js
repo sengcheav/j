@@ -16,8 +16,8 @@ var express = require('express')
 //var app = http.createServer(app1);
 client = new pg.Client(connectionString);
 client.connect();
-app.use(express.logger());  
-  app.use(express.static(__dirname));
+//app.use(express.logger());  
+ app.use(express.static(__dirname));
 
 app.use(express.cookieParser()); //just for auth
   // make express handle JSON and other requests
