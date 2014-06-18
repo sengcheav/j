@@ -55,8 +55,9 @@ res.end();
   
 
 
-function password(user, password){console.log("checking password");
-	var query = client.query('SELECT * from login_database1 WHERE username =$1', [username]);
+function password(username, password){console.log("checking password");
+
+	var query = client.query('SELECT * from login_database1 WHERE username = $1', username);
 	if(password == query.password){ return true;}
 	return false;
 	
@@ -64,9 +65,10 @@ function password(user, password){console.log("checking password");
 
 
 function findOne(username , fn) {console.log("findone");
-  var query = client.query('SELECT * from login_database1 WHERE username =$1', [username]);
- if (query.username) {
-    fn(null, query.username);
+
+  var query = client.query('SELECT * from login_database1 WHERE username =$1', username);
+ if (query == username) {
+    fn(null, username);
  } else {
     fn(new Error('User ' + username + ' does not exist'));
  	fn(null, null );
@@ -130,4 +132,5 @@ app.get('/logout', function(req, res){
 app.listen(port, function() {
   console.log('Listening on:', port);
 });
+
 
