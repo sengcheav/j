@@ -68,7 +68,7 @@ function findOne(username , fn) {console.log("findone");
  if (query.username) {
     fn(null, query.username);
  } else {
-    fn(new Error('User ' + query.username + ' does not exist'));
+    fn(new Error('User ' + username + ' does not exist'));
  	fn(null, null );
   }
 }
@@ -86,8 +86,7 @@ passport.deserializeUser(function(username, done) {
   });
 });
 
- passport.use(new LocalStrategy( 
-	function(username, password, done) {
+ passport.use(new LocalStrategy( function(username, password, done) {
     findOne( username, function(err, user) {
     if (err) { return done(err); }
     if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
@@ -98,32 +97,6 @@ passport.deserializeUser(function(username, done) {
     //});
   });
 }));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
