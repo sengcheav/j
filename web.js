@@ -67,7 +67,7 @@ function password(username, password){console.log("checking password");
 function findOne(username , fn) {console.log("findone");
 
   var query = client.query('SELECT * from login_database1 WHERE username =$1', username);
-  console.log(query);
+  console.log(query ="is this working");
  if (query == username) {
     fn(null, username);
  } else {
