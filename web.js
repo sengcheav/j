@@ -46,7 +46,7 @@ app.get('/' , function(req, res){
   
   var u = "sengcheav@yahoo.com";
   var pass = "pass";
- app.get('/3', function (req,res){
+ app.get('/3', function (req,res){console.log("checking database");
  	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[u, pass]);
 res.end();	
@@ -55,7 +55,7 @@ res.end();
   
 
 
-function password(user, password){
+function password(user, password){console.log("checking password");
 	var query = client.query('SELECT * from login_database1 WHERE username =VALUES ($1)', [username]);
 	if(password == query.password){ return true;}
 	return false;
@@ -63,7 +63,7 @@ function password(user, password){
 }
 
 
-function findOne(username , fn) {
+function findOne(username , fn) {console.log("findone");
   var query = client.query('SELECT * from login_database1 WHERE username =VALUES ($1)', [username]);
  if (query.username) {
     fn(null, query.username);
