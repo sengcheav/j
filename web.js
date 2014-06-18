@@ -11,7 +11,7 @@ var express = require('express')
   , start = new Date()
   , connectionString = process.env.DATABASE_URL
   , port = process.env.PORT || 3000
-  , client;app.use(express.bodyParser());
+  , client;
  //var app1 = express(); 
 //var app = http.createServer(app1);
 client = new pg.Client(connectionString);
@@ -21,7 +21,7 @@ app.use(express.logger());
 
 app.use(express.cookieParser()); //just for auth
   // make express handle JSON and other requests
-
+app.use(express.bodyParser());
 // // serve up files from this directory 
 
 
