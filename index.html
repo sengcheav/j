@@ -1,66 +1,132 @@
+var express = require('express')
+ //, http =requrie('http')
+  , app = express()//.createServer(express.logger())
+  , pg = require('pg').native
+  ,fs = require('fs')
+  ,http = require ('http') 
+  , passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy
+  , flash = require('connect-flash') //flash message
 
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta name="viewport" content="width=320 user-scalable=no" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>yo</title>
-   
+  , start = new Date()
+  , connectionString = process.env.DATABASE_URL
+  , port = process.env.PORT || 3000
+  , client;
+ //var app1 = express(); 
+//var app = http.createServer(app1);
+client = new pg.Client(connectionString);
+client.connect();
+app.use(express.logger());  
+  app.use(express.static(__dirname));
+app.use(express.bodyParser());
+app.use(express.cookieParser()); //just for auth
+  // make express handle JSON and other requests
 
-    <!-- Jquery and Jquery mobile -->
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js">
-    </script>
+// // serve up files from this directory 
 
-    <style>
 
-    </style>
-</head>
- <body>
- 	  <div role="main" class="ui-content">
-		<form action="/login" id= "formid" method="post">
-		    <div>
-		        <label>Username:</label>
-		        <input type="text" name="username" id="name" placeholder="Username"/>
-		    </div>
-		    <div>
-		        <label>Password:</label>
-		        <input type="password" name="password" id= "password" placeholder="Password"/>
-		    </div>
-		    <div>
-		        <input type="submit" value="Log In" id ="button"/>
-		    </div>
-		</form> 
-		 
-<script>
+// for passport
+
+app.use(express.session({ secret: 'SECRET' }));
+app.use(passport.initialize());
+app.use(passport.session());
+// // if not able to serve up a static file try and handle as REST invocation
+app.use(app.router);
 
 
 
-$(document).ready(function() {
+app.get('/' , function(req, res){
+   res.sendfile('testinghtml.html');
+     
+     
+     
+  });
+  
+  
+  
+  var u = "sengcheav@yahoo.com";
+  var pass = "pass";
+ app.get('/3', function (req,res){
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
+	[u, pass]);
+res.end();	
+ }); 
+  
+  
+
+
+function password(user, password){
+	var query = client.query('SELECT * from login_database1 WHERE username =VALUES ($1)', [username]);
+	if(password == query.password){ return true;}
+	return false;
 	
-	$.ajaxSetup ({ cache: false
-	});
-	
-	$("#sendButton").bind("click", function (event, ui){
-		//var url ="http://stark-sea-8865.herokuapp.com/3";
-		//var username = $("#name").val();
-		//var password =$("#password").val();
-		
-		//$.post(url, username, passworld, function()'json');
-		if(!"#name"){ alert("please enter your username");}
-		else if(!"#password"){ alert("please enter your password");}
-		else { $("formid").submit();}
-	});
-
- } )
+}
 
 
-</script>		 
-		 
-	 </body>	 </html>
-		 
-		  
-		  
-	  
-	
+function findOne(username , fn) {
+  var query = client.query('SELECT * from login_database1 WHERE username =VALUES ($1)', [username]);
+ if (query.username) {
+    fn(null, query.username);
+ } else {
+    fn(new Error('User ' + query.username + ' does not exist'));
+ 	fn(null, null );
+  }
+}
+
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.email);
+});
+
+passport.deserializeUser(function(username, done) {
+   findOne( username//{ email: email } 
+	   , function (err, user) {
+    done(err, user);
+  });
+});
+
+ passport.use(new LocalStrategy( 
+	function(username, password, done) {
+    findOne( username, function(err, user) {
+    if (err) { return done(err); }
+    if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+    //comparePassword(username , password, function(err, isMatch) {
+      //if (err) return done(err);
+      if(!password(user, password)){return done(null, false, { message: 'Invalid password' });}
+      else { return done(null , user);} 
+    //});
+  });
+}));
+
+
+
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
+    if (err) { return next(err) }
+    if (!user) {
+      req.session.messages =  [info.message];
+      console.log("nooooo"); 
+	  return res.redirect('/')
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+	  alert("login success");
+      return res.redirect('/');
+    });
+  })(req, res, next);
+});
+
+app.get('/logout', function(req, res){
+  req.logout();
+  alert("u r loging out");
+  res.redirect('/');
+});
+
+  
+
+
+app.listen(port, function() {
+  console.log('Listening on:', port);
+});
+
