@@ -16,7 +16,7 @@ var express = require('express')
 //var app = http.createServer(app1);
 client = new pg.Client(connectionString);
 client.connect();
-app.use(express.logger());  
+//app.use(express.logger());  
 app.use(express.static(__dirname));
 
 app.use(express.cookieParser()); //just for auth
@@ -106,12 +106,13 @@ app.post('/login', function(req, res, next) {
     if (err) { return next(err) }
     if (!user) {
       req.session.messages =  [info.message];
-      console.log("nooooo"); alert("no");
+      console.log("nooooo"); //alert("no");
 	  return res.redirect('/')
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-	  alert("login success");
+	  //alert("login success");
+	  console.log("in");
       return res.redirect('/');
     });
   })(req, res, next);
@@ -119,7 +120,8 @@ app.post('/login', function(req, res, next) {
 
 app.get('/logout', function(req, res){
   req.logout();
-  alert("u r loging out");
+  //alert("u r loging out");
+  console.log("out");
   res.redirect('/');
 });
 
