@@ -50,7 +50,7 @@ $(document.Ready(function() {
 		//$.post(url, username, passworld, function()'json');
 		if(!"#name"){ alert("please enter your username");}
 		else if(!"#password"){ alert("please enter your password");}
-		else { $("formid").attr('action', "http://stark-sea-8865.herokuapp.com/").submit();}
+		else { $("formid").submit();}
 	});
 
  } ))

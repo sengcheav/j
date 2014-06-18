@@ -97,7 +97,7 @@ passport.deserializeUser(function(username, done) {
 
 
 
-app.post('/logi', function(req, res, next) {
+app.post('/', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
     if (err) { return next(err) }
     if (!user) {
