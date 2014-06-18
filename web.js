@@ -75,13 +75,15 @@ passport.serializeUser(function(user, done) {
   done(null, user.email);
 });
 
-passport.deserializeUser(function(email, done) {
-   findOne( { email: email } , function (err, user) {
+passport.deserializeUser(function(username, done) {
+   findOne( username//{ email: email } 
+	   , function (err, user) {
     done(err, user);
   });
 });
 
- passport.use(new LocalStrategy(function(username, password, done) {
+ passport.use(new LocalStrategy( 
+	function(username, password, done) {
     findOne( username, function(err, user) {
     if (err) { return done(err); }
     if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
@@ -104,6 +106,7 @@ app.post('/login', function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
+	  alert("login success");
       return res.redirect('/');
     });
   })(req, res, next);
@@ -111,6 +114,7 @@ app.post('/login', function(req, res, next) {
 
 app.get('/logout', function(req, res){
   req.logout();
+  alert("u r loging out");
   res.redirect('/');
 });
 

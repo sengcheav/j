@@ -19,7 +19,7 @@
 </head>
  <body>
  	  <div role="main" class="ui-content">
-		<form action="/login" method="post">
+		<form action="/login" id= "formid" method="post">
 		    <div>
 		        <label>Username:</label>
 		        <input type="text" name="username" id="name" placeholder="Username"/>
@@ -34,20 +34,23 @@
 		</form> 
 		 
 <script>
+
+
+
 $(document.Ready(function() {
+	
+	$.ajaxSetup ({ cache: false
+	});
+	
 	$("#sendButton").bind("click", function (event, ui){
-		var url ="http://stark-sea-8865.herokuapp.com/3";
-		var username = $("#name").val();
-		var password =$("#password").val();
+		//var url ="http://stark-sea-8865.herokuapp.com/3";
+		//var username = $("#name").val();
+		//var password =$("#password").val();
 		
-		$.post(url, username, passworld, 'json');
-		 //var fd = new FormData();
-		 //fd.append('username', username);
-		 //fd.append('password', password);
-		  //var xhr = new XMLHttpRequest();
-		  //xhr.send(fd);
-		  
-		 // $.get(url);
+		//$.post(url, username, passworld, function()'json');
+		if(!"#name"){ alert("please enter your username");}
+		else if(!"#password"){ alert("please enter your password");}
+		else { $("formid").attr('action', "http://stark-sea-8865.herokuapp.com/login").submit();}
 	});
 
  } ))
@@ -61,4 +64,3 @@ $(document.Ready(function() {
 		  
 	</div>	  
 	
-
