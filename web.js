@@ -96,6 +96,10 @@ var r = [];
   }
 
   */
+	query.on("end", function(row, result) {
+			return res.send(r);
+		})
+
 }
 
 
