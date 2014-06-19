@@ -91,7 +91,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
 	//user.username = row.username; user.password = row.password;
 	var user = {  username: row.username, password: row.password};
 	console.log(user + user.username + user.password+" here userrrr");
-	return fn(null, user);
+	return fn(null, username);
   });
   
   return fn(null, null);
