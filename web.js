@@ -70,19 +70,29 @@ var g = [];
 
 function findOne(username , fn) {console.log("findone");
 var g = [];
-  var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
-query.on("row", function (result) {
-	console.log("Result:" + result.row);
-		g.push(result);
+//  var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
+//query.on("row", function (result) {
+//	console.log("Result:" + result.row);
+//		g.push(result);
+//	});
+	
+	client.query("SELECT * from login_database1" , function (err, res){
+		if(err){console.log (err);}
+		else {
+			for(var i =0 ; i<result.row.length ; i++){result.rows[i].username;}
+			
+		}
 	});
-  
-  //console.log(query + "is this working");
+	
+	/*
  if (query == username) {
     fn(null, username);
  } else {
     fn(new Error('User ' + username + ' does not exist'));
  	fn(null, null );
   }
+
+  */
 }
 
 
