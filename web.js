@@ -131,16 +131,14 @@ passport.deserializeUser(function(username, done) {
     findOne( username, function(err, user) { console.log(user + "should be");
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
-    //comparePassword(username , password, function(err, isMatch) {
-      
-      if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
-      else { return done(null , user);} 
-    //});
+	if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
+    return done(null , user);
+   
   });
 }));
 
 
-//fuck
+
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
     if (err) { return next(err) }
