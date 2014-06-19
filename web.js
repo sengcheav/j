@@ -138,13 +138,13 @@ app.post('/login', function(req, res, next) {
     if (!user) {
       req.session.messages =  [info.message];
       console.log("nooooo"); //alert("no");
-	  return res.redirect('/notuser')
+	  return res.redirect('/')
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
 	  //alert("login success");
 	  console.log("in");
-      return res.redirect('/in');
+      return res.redirect('/');
     });
   })(req, res, next);
 });
@@ -153,7 +153,7 @@ app.get('/logout', function(req, res){
   req.logout();
   //alert("u r loging out");
   console.log("out");
-  res.redirect('/out');
+  res.redirect('/');
 });
 
   
