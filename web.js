@@ -79,7 +79,7 @@ var g = [];
 	client.query("SELECT * from login_database1" , function (err, res){
 		if(err){console.log (err);}
 		else {
-			for(var i =0 ; i<result.row.length ; i++){result.rows[i].username;}
+			for(var i =0 ; i<res.row.length ; i++){res.rows[i].username;}
 			
 		}
 	});
