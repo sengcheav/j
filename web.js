@@ -157,7 +157,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-var USER(username, password){
+function USER(username, password){
 	this.username = username; 
 	this.password =password;
 }  
