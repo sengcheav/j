@@ -88,6 +88,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
     console.log('user "%s" is %s years old', row.username, row.password);
 	var user = new Object();
 	user.username = row.username; user.password = row.password;
+	console.log(user + user.username + user.password+" here userrrr");
 	return fn(null, user);
   });
   
@@ -111,7 +112,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
 
 
 passport.serializeUser(function(user, done) {
-  done(null, user.email);
+  done(null, user.username);
 });
 
 passport.deserializeUser(function(username, done) {
