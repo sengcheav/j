@@ -77,7 +77,7 @@ var user = 0, pass =0 ;
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 //var r = [];
-if (query == null ){console.log("NULL"); }else { console.log("not null");} 
+if (query.row == null ){console.log("NULL"); }else { console.log("not null");} 
   query.on('row', function(row) {console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
