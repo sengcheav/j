@@ -59,7 +59,7 @@ function password(username, password){console.log("checking password");
 var g = [];
 	var query = client.query("SELECT * from login_database1");// WHERE username = $1', [username]);
 	query.on("row", function (result) {
-		console.log("Result:" + result);
+		console.log("Result:" + result.row);
 			g.push(result);
 		});
 	if(password == query.password){ return true;}
@@ -72,7 +72,7 @@ function findOne(username , fn) {console.log("findone");
 var g = [];
   var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
 query.on("row", function (result) {
-	console.log("Result:" + result);
+	console.log("Result:" + result.row);
 		g.push(result);
 	});
   
