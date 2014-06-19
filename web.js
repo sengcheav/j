@@ -124,7 +124,7 @@ passport.deserializeUser(function(username, done) {
     if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
     //comparePassword(username , password, function(err, isMatch) {
       //if (err) return done(err);
-      if(!password(user, password)){return done(null, false, { message: 'Invalid password' });}
+      if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
       else { return done(null , user);} 
     //});
   });
@@ -138,13 +138,13 @@ app.post('/login', function(req, res, next) {
     if (!user) {
       req.session.messages =  [info.message];
       console.log("nooooo"); //alert("no");
-	  return res.redirect('/')
+	  return res.redirect('/notuser')
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
 	  //alert("login success");
 	  console.log("in");
-      return res.redirect('/');
+      return res.redirect('/in');
     });
   })(req, res, next);
 });
@@ -153,7 +153,7 @@ app.get('/logout', function(req, res){
   req.logout();
   //alert("u r loging out");
   console.log("out");
-  res.redirect('/');
+  res.redirect('/out');
 });
 
   
