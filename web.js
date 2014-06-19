@@ -56,13 +56,11 @@ res.end();
 
 
 function password(username, password){console.log("checking password");
-var g = [];
-	var query = client.query("SELECT * from login_database1");// WHERE username = $1', [username]);
-	query.on("row", function (result) {
-		console.log("Result:" + result.row);
-			g.push(result);
-		});
-	if(password == query.password){ return true;}
+//var g = [];
+query.on('row', function(row) {
+  console.log('user "%s" is %d years old', row.username, row.pass);
+});
+	//if(password == query.password){ return true;}
 	return false;
 	
 }
