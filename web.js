@@ -76,17 +76,18 @@ var g = [];
 var user = 0, pass =0 ;
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
-var r = [];
+//var r = [];
+if (query == null ){console.log("NULL"); }else { console.log("not null");} 
   query.on('row', function(row) {console.log("inside");
-  r.push(row);
+  //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
 	
 	user = row.username ; pass =password;
 	//fn(null , username);
   });
-  if (user != 0 ){ console.log("no user hahahha" + username);}
+  if (user == 0 ){ console.log("no user hahahha" + username);}
   else {console.log ( "user + pass" + username);}
-  console.log("ROOOOW "+ r.length);
+  //console.log("ROOOOW "+ r.length);
 	/*
  if (query == username) {
     fn(null, username);
@@ -96,9 +97,7 @@ var r = [];
   }
 
   */
-	query.on("end", function(row, result) {
-			return res.send(r);
-		})
+	
 
 }
 
