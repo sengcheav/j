@@ -57,7 +57,7 @@ res.end();
 
 function password(username, password){console.log("checking password");
 
-	var query = client.query('SELECT * from login_database1 WHERE username = sengcheav@yahoo.com');
+	var query = client.query('SELECT * from login_database1');//' WHERE username = VALUES($1)', [username]);
 	if(password == query.password){ return true;}
 	return false;
 	
@@ -66,8 +66,8 @@ function password(username, password){console.log("checking password");
 
 function findOne(username , fn) {console.log("findone");
 
-  var query = client.query('SELECT * from login_database1 WHERE username = sengcheav@yahoo.com');
-  console.log(query ="is this working");
+  var query = client.query('SELECT * from login_database1');// WHERE username =VALUES($1)', [username]);
+  console.log(query + "is this working");
  if (query == username) {
     fn(null, username);
  } else {
