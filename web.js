@@ -68,7 +68,7 @@ var g = [];
 }
 
 
-function findOne(username , fn) {console.log("findone");
+function findOne(username , fn) {console.log("findone  ++");
 var g = [];
 //  var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
 //query.on("row", function (result) {
@@ -76,13 +76,10 @@ var g = [];
 //		g.push(result);
 //	});
 	
-	client.query("SELECT * from login_database1" , function (err, res){
-		if(err){console.log (err);}
-		else {
-			for(var i =0 ; i<res.rows.length ; i++){res.rows[i].username;}
-			
-		}
-	});
+var query = client.query('SELECT * FROM login_database1');
+  query.on('row', function(row) {
+    console.log('user "%s" is %d years old', row.username, row.pass);
+  });
 	
 	/*
  if (query == username) {
