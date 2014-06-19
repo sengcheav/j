@@ -73,7 +73,7 @@ var g = [];
 //	console.log("Result:" + result.row);
 //		g.push(result);
 //	});
-var user, pass ;
+var user = 0, pass =0 ;
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row) {console.log("inside");
  
@@ -81,7 +81,7 @@ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [
 	user = row.username ; pass =password;
 	//fn(null , username);
   });
-  if (user == null ){ console.log("no user hahahha" + username);}
+  if (user != 0 ){ console.log("no user hahahha" + username);}
   else {console.log ( "user + pass");}
 	/*
  if (query == username) {
