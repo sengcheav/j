@@ -57,6 +57,7 @@ res.end();
 
 function password(username, password){console.log("checking password");
 //var g = [];
+var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 query.on('row', function(row) {
   console.log('user "%s" is %s years old', row.username, row.password);
   if(username == row.username && password == row.password){ console.log ("yess");}
