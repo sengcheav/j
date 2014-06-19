@@ -59,6 +59,10 @@ function password(username, password){console.log("checking password");
 //var g = [];
 query.on('row', function(row) {
   console.log('user "%s" is %s years old', row.username, row.password);
+  if(username == row.username && password == row.password){ console.log ("yess");}
+  return true;
+  
+  
 });
 	//if(password == query.password){ return true;}
 	return false;
@@ -73,7 +77,7 @@ var g = [];
 //	console.log("Result:" + result.row);
 //		g.push(result);
 //	});
-var user = 0, pass =0 ;
+//var user = 0, pass =0 ;
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 //var r = [];
@@ -81,12 +85,12 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
   query.on('row', function(row) {console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
-	
-	user = row.username ; pass =password;
-	//fn(null , username);
+	return fn(null, username);
   });
-  if (user == 0 ){ console.log("no user hahahha" + username);}
-  else {console.log ( "user + pass" + username);}
+  
+  return fn(null, null);
+//  if (user == 0 ){ console.log("no user hahahha" + username);}
+  //else {console.log ( "user + pass" + username);}
   //console.log("ROOOOW "+ r.length);
 	/*
  if (query == username) {
