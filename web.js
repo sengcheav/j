@@ -89,7 +89,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
     console.log('user "%s" is %s years old', row.username, row.password);
 	//var user = new Object();
 	//user.username = row.username; user.password = row.password;
-	var user = {  username: username, password: password};
+	var user = {  username: row.username, password: row.password};
 	console.log(user + user.username + user.password+" here userrrr");
 	return fn(null, user);
   });
@@ -167,4 +167,12 @@ app.get('/logout', function(req, res){
 app.listen(port, function() {
   console.log('Listening on:', port);
 });
-
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed.  Otherwise, the user will be redirected to the
+//   login page.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
