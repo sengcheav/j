@@ -85,7 +85,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
   query.on('row', function(row) {console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
-	var user = new object();
+	var user = new Object();
 	user.username = row.username; user.password = row.password;
 	return fn(null, user);
   });
