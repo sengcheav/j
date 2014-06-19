@@ -23,7 +23,7 @@ app.use(express.cookieParser()); //just for auth
   // make express handle JSON and other requests
 app.use(express.bodyParser());
 // // serve up files from this directory 
-
+ app.use(express.cookieSession());
 
 // for passport
 
@@ -55,11 +55,12 @@ res.end();
   
 
 
-function password(username, password){console.log("checking password");
+function password(username, password){
+	console.log("checking password");
 //var g = [];
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 query.on('row', function(row) {
-  console.log('user "%s" is %s years old', row.username, row.password);
+  console.log('user "%s" is %s years old lolololol' , row.username, row.password);
   if(username == row.username && password == row.password){ console.log ("yess");}
   return true;
   
@@ -68,11 +69,11 @@ query.on('row', function(row) {
 	//if(password == query.password){ return true;}
 	return false;
 	
-}
+};
 
 
 function findOne(username , fn) {console.log("findone  ++");
-var g = [];
+//var g = [];
 //  var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
 //query.on("row", function (result) {
 //	console.log("Result:" + result.row);
