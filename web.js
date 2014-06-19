@@ -94,7 +94,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
 	//user.username = row.username; user.password = row.password;
 	 user = {  username: row.username, password: row.password};
 	console.log(user + user.username + user.password+" here userrrr");
-	 return fn(null, user);
+	// return fn(null, user);
   })
  // console.log(user.username + user.password +"outside");
   console.log("Result " + r[0].row.username); 
