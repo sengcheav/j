@@ -85,7 +85,8 @@ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [
 //var r = [];
 var user;
 if (query.row == null ){console.log("NULL"); }else { console.log("not null");} 
-  query.on('row', function(row) {console.log("inside");
+  query.on('row', function(row) {
+	  console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
 	//var user = new Object();
@@ -94,6 +95,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
 	console.log(user + user.username + user.password+" here userrrr");
 	
   })
+  console.log(user.username + user.password +"outside");
   return fn(null, user);
  // return fn(null, null);
 //  if (user == 0 ){ console.log("no user hahahha" + username);}
@@ -126,7 +128,7 @@ passport.deserializeUser(function(username, done) {
 });
 
  passport.use(new LocalStrategy( function(username, password, done) {
-    findOne( username, function(err, user) {
+    findOne( username, function(err, user) { console.log(user + "should be");
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
     //comparePassword(username , password, function(err, isMatch) {
