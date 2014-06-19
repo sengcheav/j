@@ -85,7 +85,7 @@ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [
   });
   if (user != 0 ){ console.log("no user hahahha" + username);}
   else {console.log ( "user + pass" + username);}
-  console.log("ROOOOW "+ row);
+  console.log("ROOOOW "+ r.length);
 	/*
  if (query == username) {
     fn(null, username);
