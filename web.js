@@ -83,18 +83,19 @@ function findOne(username , fn) {console.log("findone  ++");
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 //var r = [];
+var user;
 if (query.row == null ){console.log("NULL"); }else { console.log("not null");} 
   query.on('row', function(row) {console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
 	//var user = new Object();
 	//user.username = row.username; user.password = row.password;
-	var user = {  username: row.username, password: row.password};
+	 user = {  username: row.username, password: row.password};
 	console.log(user + user.username + user.password+" here userrrr");
-	return fn(null, true);
+	
   })
-  
-  return fn(null, null);
+  return fn(null, user);
+ // return fn(null, null);
 //  if (user == 0 ){ console.log("no user hahahha" + username);}
   //else {console.log ( "user + pass" + username);}
   //console.log("ROOOOW "+ r.length);
