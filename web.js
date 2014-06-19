@@ -85,6 +85,7 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
   query.on('row', function(row) {console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
+	var user = new USER(row.username, row.password);
 	return fn(null, user);
   });
   
@@ -124,7 +125,7 @@ passport.deserializeUser(function(username, done) {
     if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
     //comparePassword(username , password, function(err, isMatch) {
       //if (err) return done(err);
-      if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
+      if(password(username, password)== false){return done(null, false, { message: 'Invalid password' });}
       else { return done(null , user);} 
     //});
   });
@@ -156,7 +157,10 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-  
+var USER(username, password){
+	this.username = username; 
+	this.password =password;
+}  
 
 
 app.listen(port, function() {
