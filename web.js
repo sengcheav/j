@@ -85,7 +85,8 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
   query.on('row', function(row) {console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
-	var user = new USER(row.username, row.password);
+	var user = new object();
+	user.username = row.username; user.password = row.password;
 	return fn(null, user);
   });
   
@@ -157,10 +158,6 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-function USER(username, password){
-	this.username = username; 
-	this.password =password;
-}  
 
 
 app.listen(port, function() {
