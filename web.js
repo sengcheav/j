@@ -83,11 +83,12 @@ function findOne(username , fn) {console.log("findone  ++");
 //var user = 0, pass =0 ;
 
 
-fn(null, b);
+
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 
-
-  var b = query.on('row', function(row ) {
+function b(){
+ // var b =
+  query.on('row', function(row ) {
 	  console.log("inside");
 	
     console.log('user "%s" is %s years old', row.username, row.password);
@@ -98,8 +99,8 @@ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [
 	console.log(user + user.username + user.password+" here userrrr");
 	//  fn(null, user);
 	return user; 
-  })
- 
+  })}
+ fn(null, b);
  // console.log(user.username + user.password +"outside");
  
    
