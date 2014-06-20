@@ -74,13 +74,12 @@ query.on('row', function(row) {
  
 
 function findOne(username , fn) {console.log("findone  ++");
-user =b(username);
-return fn( null ,user);
-}
 
-function b(username){
+
+
+
  // var b =
- /*
+ 
  var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
 	  console.log("inside");
@@ -89,13 +88,13 @@ function b(username){
 	//b.push(row);
 	//var user = new Object();
 	//user.username = row.username; user.password = row.password;
-	var user = {  username: row.username, password: row.password};
+
 	//console.log(user + user.username + user.password+" here userrrr");
 	//  fn(null, user);
-	return user;
-  });*/
-var user = {  username: 'seng', password:'pass'};
-return user;
+	//return user;
+  });
+	var user = {  username: "seng", password: "yobro"};
+return fn(null, user);
 };
 // return fn(null, b);
 
