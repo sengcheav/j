@@ -86,7 +86,7 @@ var b =[];
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 var user;
-  var b =  function (query.on('row', function(row  , result ) {
+  var b =  function (query.on('row', function(row  , result )) {
 	
     console.log('user "%s" is %s years old', row.username, row.password);
 	
@@ -96,7 +96,7 @@ var user;
 	console.log(user + user.username + user.password+" here userrrr");
 	//  fn(null, user);
 	return user; 
-  )});
+  });
  
  // console.log(user.username + user.password +"outside");
  var u = function(b){ console.log (b);}
