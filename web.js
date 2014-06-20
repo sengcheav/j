@@ -74,11 +74,13 @@ query.on('row', function(row) {
  
 
 function findOne(username , fn) {console.log("findone  ++");
+user = function(b(username))
 return fn( null ,b(username));
 }
 
 function b(username){
  // var b =
+ /*
  var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
 	  console.log("inside");
@@ -91,7 +93,10 @@ function b(username){
 	//console.log(user + user.username + user.password+" here userrrr");
 	//  fn(null, user);
 	return user;
-  });};
+  });*/
+var user = {  username: 'seng', password:'pass'};]
+return user;
+};
 // return fn(null, b);
 
   //console.log("ROOOOW "+ b.length);
@@ -114,7 +119,7 @@ passport.deserializeUser(function(username, done) {
 });
 
  passport.use(new LocalStrategy( function(username, password, done) {
-    findOne( username, function(err, user) { console.log(user + "should be");
+    findOne( username, function(err, user) { console.log(user + " should be");
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
