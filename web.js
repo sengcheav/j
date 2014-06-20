@@ -74,14 +74,14 @@ query.on('row', function(row) {
  
 
 function findOne(username , fn) {console.log("findone  ++");
-//var g = [];
+//var g = []
 //  var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
 //query.on("row", function (result) {
 //	console.log("Result:" + result.row);
 //		g.push(result);
 //	});
 //var user = 0, pass =0 ;
-var b =[];
+var b ;
 
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
