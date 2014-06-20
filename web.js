@@ -74,19 +74,10 @@ query.on('row', function(row) {
  
 
 function findOne(username , fn) {console.log("findone  ++");
-//var g = []
-//  var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
-//query.on("row", function (result) {
-//	console.log("Result:" + result.row);
-//		g.push(result);
-//	});
-//var user = 0, pass =0 ;
+return fn( null ,b(username));
+}
 
-
-
-
-
-function b(){
+function b(username){
  // var b =
  var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
@@ -96,30 +87,18 @@ function b(){
 	//b.push(row);
 	//var user = new Object();
 	//user.username = row.username; user.password = row.password;
-	//var user = {  username: row.username, password: row.password};
+	var user = {  username: row.username, password: row.password};
 	//console.log(user + user.username + user.password+" here userrrr");
 	//  fn(null, user);
-	return user= {  username: row.username, password: row.password};; 
+	return user;
   });};
- fn(null, b);
- // console.log(user.username + user.password +"outside");
- 
-   
-//  if (user == 0 ){ console.log("no user hahahha" + username);}
-  //else {console.log ( "user + pass" + username);}
-  console.log("ROOOOW "+ b.length);
-	/*
- if (query == username) {
-    fn(null, username);
- } else {
-    fn(new Error('User ' + username + ' does not exist'));
- 	fn(null, null );
-  }
+// return fn(null, b);
 
-  */
+  //console.log("ROOOOW "+ b.length);
+
 	
 
-}
+
 
 
 
@@ -151,12 +130,11 @@ app.post('/login', function(req, res, next) {
     if (err) { return next(err) }
     if (!user) {
       req.session.messages =  [info.message];
-      console.log("nooooo"); //alert("no");
+      console.log("nooooo"); 
 	  return res.redirect('/')
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-	  //alert("login success");
 	  console.log("in");
       return res.redirect('/');
     });
@@ -165,7 +143,6 @@ app.post('/login', function(req, res, next) {
 
 app.get('/logout', function(req, res){
   req.logout();
-  //alert("u r loging out");
   console.log("out");
   res.redirect('/');
 });
