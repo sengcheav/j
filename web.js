@@ -71,7 +71,7 @@ query.on('row', function(row) {
 	return false;
 	
 };
-
+ 
 
 function findOne(username , fn) {console.log("findone  ++");
 //var g = [];
@@ -86,22 +86,20 @@ var b =[];
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 var user;
-if (query.row == null ){console.log("NULL"); }else { console.log("not null");} 
-  query.on('row', function(row  , result, b) {
-	  console.log("inside");
-	  b.push(row);
-  //r.push(row);
+  var b = query.on('row', function(row  , result ) {
+	
     console.log('user "%s" is %s years old', row.username, row.password);
-	b.push(row);
+	
 	//var user = new Object();
 	//user.username = row.username; user.password = row.password;
 	 user = {  username: row.username, password: row.password};
 	console.log(user + user.username + user.password+" here userrrr");
-	  fn(null, user);
+	//  fn(null, user);
+	return user; 
   })
  
  // console.log(user.username + user.password +"outside");
-
+ var u = function(b){ console.log (b);}
    fn(null, null);
 //  if (user == 0 ){ console.log("no user hahahha" + username);}
   //else {console.log ( "user + pass" + username);}
