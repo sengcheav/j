@@ -33,7 +33,7 @@ app.use(passport.session());
 // // if not able to serve up a static file try and handle as REST invocation
 app.use(app.router);
 
-
+var b = []; 
 
 app.get('/' , function(req, res){
    res.sendfile('testinghtml.html');
@@ -72,7 +72,7 @@ query.on('row', function(row) {
 };
 
 
-function findOne(username , callback) {console.log("findone  ++");
+function findOne(username , fn) {console.log("findone  ++");
 //var g = [];
 //  var query = client.query("SELECT * from login_database1 ");//WHERE username =$1', [username]);
 //query.on("row", function (result) {
@@ -88,19 +88,20 @@ if (query.row == null ){console.log("NULL"); }else { console.log("not null");}
 	  console.log("inside");
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
-
+	b.push(row);
 	//var user = new Object();
 	//user.username = row.username; user.password = row.password;
 	 user = {  username: row.username, password: row.password};
 	console.log(user + user.username + user.password+" here userrrr");
-	  callback(null, user);
+	  fn(null, user);
   })
+ 
  // console.log(user.username + user.password +"outside");
 
-   callback(null, null);
+   fn(null, null);
 //  if (user == 0 ){ console.log("no user hahahha" + username);}
   //else {console.log ( "user + pass" + username);}
-  //console.log("ROOOOW "+ r.length);
+  console.log("ROOOOW "+ b.length);
 	/*
  if (query == username) {
     fn(null, username);
