@@ -142,7 +142,8 @@ app.post('/login', function(req, res, next) {
 	  console.log("in");
       return res.redirect('/');
     });
-  })(req, res);
+  })
+  (req, res, next);
 });
 
 app.get('/logout', function(req, res){
