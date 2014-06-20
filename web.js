@@ -33,7 +33,7 @@ app.use(passport.session());
 // // if not able to serve up a static file try and handle as REST invocation
 app.use(app.router);
 
-var b = []; 
+
 
 app.get('/' , function(req, res){
    res.sendfile('testinghtml.html');
@@ -58,6 +58,7 @@ res.end();
 function password(username, password){
 	console.log("checking password");
 //var g = [];
+var b = []; 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 query.on('row', function(row) {
   console.log('user "%s" is %s years old lolololol' , row.username, row.password);
@@ -80,12 +81,15 @@ function findOne(username , fn) {console.log("findone  ++");
 //		g.push(result);
 //	});
 //var user = 0, pass =0 ;
+var b =[];
+
 
 var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 var user;
 if (query.row == null ){console.log("NULL"); }else { console.log("not null");} 
-  query.on('row', function(row  , result) {
+  query.on('row', function(row  , result, b) {
 	  console.log("inside");
+	  b.push(row);
   //r.push(row);
     console.log('user "%s" is %s years old', row.username, row.password);
 	b.push(row);
