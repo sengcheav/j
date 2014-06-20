@@ -74,8 +74,8 @@ query.on('row', function(row) {
  
 
 function findOne(username , fn) {console.log("findone  ++");
-//user =b(username);
-return fn( null ,b(username));
+user =b(username);
+return fn( null ,user);
 }
 
 function b(username){
