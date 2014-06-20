@@ -100,7 +100,7 @@ function b(){
 	//console.log(user + user.username + user.password+" here userrrr");
 	//  fn(null, user);
 	return user= {  username: row.username, password: row.password};; 
-  })}
+  });};
  fn(null, b);
  // console.log(user.username + user.password +"outside");
  
