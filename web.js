@@ -143,7 +143,7 @@ app.post('/login', function(req, res, next) {
       return res.redirect('/');
     });
   })
-  (req, res, next);
+  //(req, res, next);
 });
 
 app.get('/logout', function(req, res){
