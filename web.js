@@ -128,7 +128,7 @@ passport.deserializeUser(function(username, done) {
 }));
 
 
-
+/*
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
     if (err) { return next(err) }
@@ -142,9 +142,14 @@ app.post('/login', function(req, res, next) {
 	  console.log("in");
       return res.redirect('/');
     });
-  })
-  //(req, res, next);
+  })(req, res, next);
 });
+*/
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
 
 app.get('/logout', function(req, res){
   req.logout();
