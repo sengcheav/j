@@ -96,10 +96,10 @@ function b(){
 	//b.push(row);
 	//var user = new Object();
 	//user.username = row.username; user.password = row.password;
-	var user = {  username: row.username, password: row.password};
-	console.log(user + user.username + user.password+" here userrrr");
+	//var user = {  username: row.username, password: row.password};
+	//console.log(user + user.username + user.password+" here userrrr");
 	//  fn(null, user);
-	return user; 
+	return user= {  username: row.username, password: row.password};; 
   })}
  fn(null, b);
  // console.log(user.username + user.password +"outside");
