@@ -84,10 +84,11 @@ function findOne(username , fn) {console.log("findone  ++");
 
 
 
-var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
+
 
 function b(){
  // var b =
+ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
 	  console.log("inside");
 	
