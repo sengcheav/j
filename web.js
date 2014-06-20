@@ -94,7 +94,7 @@ function b(username){
 	//  fn(null, user);
 	return user;
   });*/
-var user = {  username: 'seng', password:'pass'};]
+var user = {  username: 'seng', password:'pass'};
 return user;
 };
 // return fn(null, b);
