@@ -98,7 +98,7 @@ function findOne(username , fn) {console.log("findone  ++");
 	return  fn(null, user);
 	
   });
-  return fn(null, user);
+  return fn(null, null);
 // */ 
   
   
