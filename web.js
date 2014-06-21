@@ -106,6 +106,9 @@ function findOne(username , fn) {console.log("findone  ++");
 };
 
 
+
+
+
 	
 
 
@@ -124,7 +127,7 @@ passport.deserializeUser(function(username, done) {
 });
 
  passport.use(new LocalStrategy( function(username, password, done) {
-    findOne( username, function(err, user) { console.log(user + " should be");
+    findOne( username, function(err, user) { console.log(user.username + " should be");
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
