@@ -130,9 +130,9 @@ passport.deserializeUser(function(username, done) {
     findOne( username, function(err, user) { console.log(user.username + " should be " + user.password);
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
-	//if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
+	if(!password(username, password)){return done(null, false, { message: 'Invalid password' });}
     //if ( password != user.password){return done(null, false, { message: 'Invalid password' });}
-	
+	console.log(user.username + " ----------- " + user.password);
 	return done(null , user);
    
   });
