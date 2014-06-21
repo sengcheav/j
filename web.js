@@ -16,14 +16,12 @@ var express = require('express')
 //var app = http.createServer(app1);
 client = new pg.Client(connectionString);
 client.connect();
-//app.use(express.logger());  
+//THis need tobe in ORDER otherwise it wont work
 app.use(express.static(__dirname));
 
 app.use(express.cookieParser()); //just for auth
-  // make express handle JSON and other requests
+ 
 app.use(express.bodyParser());
-// // serve up files from this directory 
-// app.use(express.cookieSession());
 
 // for passport
 
@@ -76,29 +74,37 @@ query.on('row', function(row) {
 function findOne(username , fn) {console.log("findone  ++");
 
 
-
+return fn (null , function(user){
+    var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
+     query.on('row', function(row ) {
+   	  console.log("inside");
+	
+       console.log('user "%s" is %s years old', row.username, row.password);
+   	//b.push(row);
+   	var user = new Object();
+   	user.username = row.username; user.password = row.password;});
+})
 
  // var b =
- 
+ /*
  var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
 	  console.log("inside");
 	
     console.log('user "%s" is %s years old', row.username, row.password);
 	//b.push(row);
-	//var user = new Object();
-	//user.username = row.username; user.password = row.password;
-
-	//console.log(user + user.username + user.password+" here userrrr");
-	//  fn(null, user);
-	//return user;
+	var user = new Object();
+	user.username = row.username; user.password = row.password;
+	return  fn(null, user);
+	
   });
-	var user = {  username: "seng", password: "yobro"};
-return fn(null, user);
+  return fn(null, user);
+ */ 
+  
+  
+  
 };
-// return fn(null, b);
 
-  //console.log("ROOOOW "+ b.length);
 
 	
 
