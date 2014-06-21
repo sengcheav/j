@@ -29,6 +29,7 @@ app.use(express.session({ secret: 'SECRET' }));
 app.use(passport.initialize());
 app.use(passport.session());
 // // if not able to serve up a static file try and handle as REST invocation
+app.use(flash());
 app.use(app.router);
 
 
