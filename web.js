@@ -48,10 +48,18 @@ app.get('/' , function(req, res){
  app.get('/3', function (req,res){console.log("checking database");
  	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[u, pass]);
-res.end();	
+//res.end();	
  }); 
   
-  
+function signup(username, password){
+	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
+	query.on('row', function(row) {
+		console.log("Username exist");
+	});
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
+	[username, password]);
+	
+}  
 
 
 function password(username, password){
@@ -139,7 +147,7 @@ passport.deserializeUser(function(username, done) {
   });
 }));
 
-
+app.post('/signUp')
 /*
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
