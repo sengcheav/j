@@ -55,10 +55,11 @@ function signup(username, password){
 	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 	query.on('row', function(row) {
 		console.log("Username exist");
+		res.send(404);
 	});
  	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[username, password]);
-	
+	res.send(200);
 }  
 
 
@@ -125,7 +126,7 @@ function findOne(username , fn) {console.log("findone  ++");
 
 
 passport.serializeUser(function(user, done) {
-  done(null, user );
+  done(null, user.username );
 });
 
 passport.deserializeUser(function(username, done) {
@@ -136,15 +137,17 @@ passport.deserializeUser(function(username, done) {
 });
 
  passport.use(new LocalStrategy( function(username, password, done) {
-    findOne( username, function(err, user) { //console.log(user.username + " should be " + user.password);
+   // process.nextTick(function () {
+	findOne( username, function(err, user) { //console.log(user.username + " should be " + user.password);
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	//if(password(username, password) == false){return done(null, false, { message: 'Invalid password' });}
-    else if ( password != user.password){ console.lgo("LLLL");   return done(null, false, { message: 'Invalid password' });}
+    if ( password != user.password){ console.lgo("LLLL");   return done(null, false, { message: 'Invalid password' });}
 	else { //console.log(user.username + " ----------- " + user.password);
 	return done(null , user);
     }
-  });
+  })
+ });
 }));
 
 app.post('/signUp')
