@@ -131,7 +131,7 @@ passport.deserializeUser(function(username, done) {
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	//if(password(username, password) == false){return done(null, false, { message: 'Invalid password' });}
-    if ( password != user.password){return done(null, false, { message: 'Invalid password' });}
+    if ( password != user.password){ console.lgo("LLLL");   return done(null, false, { message: 'Invalid password' });}
 	console.log(user.username + " ----------- " + user.password);
 	return done(null , user);
    
