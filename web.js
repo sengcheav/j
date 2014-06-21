@@ -146,7 +146,7 @@ passport.deserializeUser(function(username, done) {
 	else { //console.log(user.username + " ----------- " + user.password);
 	return done(null , user);
     }
-  })
+  });
  //});
 }));
 
