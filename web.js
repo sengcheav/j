@@ -57,7 +57,7 @@ function signup(username, password){
 	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 	query.on('row', function(row) {
 		console.log("Username exist");
-		//res.send(404);
+		
 	});
  	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[username, password]);
@@ -129,6 +129,7 @@ passport.deserializeUser(function(username, done) {
 });
 
  passport.use(new LocalStrategy( function(username, password, done) {
+   app.get('/logout');
    //process.nextTick(function () {
 	findOne( username, function(err, user) { console.log(user.username + " should be " + user.password);
     if (err) { console.log ( "err "); return done(err); }
@@ -162,7 +163,7 @@ app.post('/login', function(req, res, next) {
 */
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/gg',
+                                   failureRedirect: '/login',
                                    failureFlash: true })
 );
 
@@ -175,7 +176,7 @@ app.get('/logout', function(req, res){
 
 
 app.listen(port, function() {
-  console.log('Listening on:', port);
+//   console.log('Listening on:', port);
 });
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
