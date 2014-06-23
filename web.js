@@ -132,7 +132,7 @@ passport.deserializeUser(function(username, done) {
 });
 
  passport.use(new LocalStrategy( function(username, password, done) {
-  
+  process.nextTick(function () {
    //process.nextTick(function () {
 	findOne( username, function(err, user) { console.log(user.username + " should be " + user.password);
     if (err) { console.log ( "err "); return done(err); }
@@ -143,6 +143,7 @@ passport.deserializeUser(function(username, done) {
 	return done(null , user);
    }
   });
+});
  //});
 }));
 
