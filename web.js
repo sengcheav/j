@@ -35,7 +35,7 @@ app.use(app.router);
 
 
 app.get('/' , function(req, res){
-   res.sendfile('testinghtml.html');
+   res.sendfile('index.html');
      
      
      
