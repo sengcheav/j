@@ -33,7 +33,11 @@
 		    </div>
 		     
 		</form> 
-		
+		<form action="/logout" id= "formidd" method="get">
+		 <div>
+		        <input type="submit" value="Log out" id ="button2"/>
+		    </div>
+		 </form> 
 <script>
 
 
@@ -53,7 +57,15 @@ $(document).ready(function() {
 		else if(!"#password"){ alert("please enter your password");}
 		else { $("formid").submit();}
 	});
-	
+	$("#button2").bind("click", function (event, ui){
+		//var url ="http://stark-sea-8865.herokuapp.com/3";
+		//var username = $("#name").val();
+		//var password =$("#password").val();
+		
+		//$.post(url, username, passworld, function()'json');
+		
+		 $("formidd").submit();
+	});
 
  } )
 
