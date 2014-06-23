@@ -25,7 +25,7 @@ app.use(express.bodyParser());
 
 // for passport
 
-app.use(express.session({ secret: 'SECRET' }));
+app.use(express.session({ secret: 'SECRET' , cookie:{_expires : 2000}, }));
 app.use(passport.initialize());
 app.use(passport.session());
 // // if not able to serve up a static file try and handle as REST invocation
@@ -105,8 +105,9 @@ function findOne(username , fn) {console.log("findone  ++");
 	
     console.log('user "%s" is %s years old', row.username, row.password);
 	//b.push(row);
-	var user = new Object();
-	user.username = row.username; user.password = row.password; user.id =2;
+	var user = new Object();.
+	var randomnumber=Math.floor(Math.random()*11);
+	user.username = row.username; user.password = row.password; user.id =randomnumber; 
 	return  fn(null, user);
 	
   });
