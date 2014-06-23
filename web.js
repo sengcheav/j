@@ -25,7 +25,7 @@ app.use(express.bodyParser());
 
 // for passport
 
-app.use(express.session({ secret: 'SECRET' ,, cookie: { maxAge: 60000 } }));
+app.use(express.session({ secret: 'SECRET' , cookie: { maxAge: 60000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 // // if not able to serve up a static file try and handle as REST invocation
@@ -187,5 +187,5 @@ app.listen(port, function() {
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
+  else {res.redirect('/login');}
 }
