@@ -31,11 +31,13 @@
 		    <div>
 		        <input type="submit" value="Log In" id ="button"/>
 		    </div>
-		     <div>
+		     
+		</form> 
+		<form action="/logout" id= "formidd" method="get">
+		 <div>
 		        <input type="submit" value="Log out" id ="button2"/>
 		    </div>
-		</form> 
-		 
+		 </form> 
 <script>
 
 
@@ -61,9 +63,8 @@ $(document).ready(function() {
 		//var password =$("#password").val();
 		
 		//$.post(url, username, passworld, function()'json');
-		if(!"#name"){ alert("please enter your username");}
-		else if(!"#password"){ alert("please enter your password");}
-		else { $("formid").submit();}
+		
+		 $("formidd").submit();
 	});
 
  } )
