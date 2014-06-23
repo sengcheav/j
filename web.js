@@ -111,8 +111,10 @@ function findOne(username , fn) {console.log("findone  ++");
 	return  fn(null, user);
 
   });
-//   return fn(null, null);
+   return fn(null, null);
 // */ 
+  
+  
   
   
   
@@ -176,6 +178,8 @@ app.get('/logout', function(req, res){
   console.log("out");
   res.redirect('/');
 });
+
+
 
 
 
