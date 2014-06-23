@@ -46,18 +46,18 @@ app.get('/' , function(req, res){
   var u = "sengcheav@yahoo.com";
   var pass = "pass";
  app.get('/3', function (req,res){console.log("checking database");
- 	client.query('INSERT INTO login_database12 (username, password) VALUES($1, $2)',
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[u, pass]);
 //res.end();	
  }); 
   
 function signup(username, password){
-	var query = client.query('SELECT * FROM login_database12 WHERE username = $1' , [username]);
+	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 	query.on('row', function(row) {
 		console.log("Username exist");
 		//res.send(404);
 	});
- 	client.query('INSERT INTO login_database12 (username, password) VALUES($1, $2)',
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[username, password]);
 	res.send(200);
 }  
@@ -98,7 +98,7 @@ function findOne(username , fn) {
 
  // var b =
 // /*
- var query = client.query('SELECT * FROM login_database12 WHERE username = $1' , [username]);
+ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
 	  console.log("inside find one funtion");
 	
@@ -128,7 +128,7 @@ function findOne(username , fn) {
 
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(username, done) {
