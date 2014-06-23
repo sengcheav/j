@@ -118,7 +118,7 @@ function findOne(username , fn) {console.log("findone  ++");
 };
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id );
+  done(null, user.username );
 });
 
 passport.deserializeUser(function(username, done) {
