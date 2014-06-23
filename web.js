@@ -106,7 +106,7 @@ function findOne(username , fn) {console.log("findone  ++");
     console.log('user "%s" is %s years old', row.username, row.password);
 	//b.push(row);
 	var user = new Object();
-	user.username = row.username; user.password = row.password; user.id =row.Id;
+	user.username = row.username; user.password = row.password; user.id =2;
 	return  fn(null, user);
 	
   });
@@ -118,7 +118,7 @@ function findOne(username , fn) {console.log("findone  ++");
 };
 
 passport.serializeUser(function(user, done) {
-  done(null, user.username );
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(username, done) {
