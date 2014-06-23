@@ -101,7 +101,7 @@ function findOne(username , fn) {console.log("findone  ++");
 // /*
  var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
-	  console.log("inside");
+	  console.log("inside findOne function ");
 	
     console.log('user "%s" is %s years old', row.username, row.password);
 	//b.push(row);
@@ -162,7 +162,7 @@ app.post('/login', function(req, res, next) {
 */
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
+                                   failureRedirect: '/gg',
                                    failureFlash: true })
 );
 
