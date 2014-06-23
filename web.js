@@ -110,7 +110,7 @@ function findOne(username , fn) {
 	return  fn(null, user);
 	
   });
-  return fn(null,user);
+  return fn(null,null);
 // */ 
   
   
