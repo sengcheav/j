@@ -105,7 +105,7 @@ function findOne(username , fn) {console.log("findone  ++");
 	
     console.log('user "%s" is %s years old', row.username, row.password);
 	//b.push(row);
-	var user = new Object();.
+	var user = new Object();
 	var randomnumber=Math.floor(Math.random()*11);
 	user.username = row.username; user.password = row.password; user.id =randomnumber; 
 	return  fn(null, user);
