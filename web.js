@@ -55,7 +55,7 @@ function signup(username, password){
 	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 	query.on('row', function(row) {
 		console.log("Username exist");
-		res.send(404);
+		//res.send(404);
 	});
  	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[username, password]);
@@ -81,7 +81,8 @@ query.on('row', function(row) {
 };
  
 
-function findOne(username , fn) {console.log("findone  ++");
+function findOne(username , fn) {
+	console.log("findone  ++");
 
 /*
  fn (null , function(user){
@@ -109,7 +110,7 @@ function findOne(username , fn) {console.log("findone  ++");
 	return  fn(null, user);
 	
   });
-  return fn(null, null);
+  return fn(null,user);
 // */ 
   
   
@@ -131,7 +132,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(username, done) {
-   findOne( username//{ email: email } 
+   findOne( username
 	   , function (err, user) {
     done(err, user);
   });
@@ -139,12 +140,12 @@ passport.deserializeUser(function(username, done) {
 
  passport.use(new LocalStrategy( function(username, password, done) {
    //process.nextTick(function () {
-	findOne( username, function(err, user) { //console.log(user.username + " should be " + user.password);
+	findOne( username, function(err, user) { console.log(user.username + " should be " + user.password);
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	//if(password(username, password) == false){return done(null, false, { message: 'Invalid password' });}
-    if ( password != user.password){ console.lgo("LLLL");   return done(null, false, { message: 'Invalid password' });}
-	else { //console.log(user.username + " ----------- " + user.password);
+    if ( password != user.password){ console.log("LLLL");   return done(null, false, { message: 'Invalid password' });}
+	else { console.log(user.username + " ----------- " + user.password);
 	return done(null , user);
     }
   });
