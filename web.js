@@ -165,7 +165,7 @@ app.post('/login', function(req, res, next) {
 */
 ///*
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
+  passport.authenticate('local', { successRedirect: '/hot',
                                    failureRedirect: '/login',
                                    failureFlash: true })
 
