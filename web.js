@@ -67,7 +67,7 @@ function password(username, password){
 	console.log("checking password");
 //var g = [];
 var b = []; 
-var query = client.query('SELECT * FROM login_database12 WHERE username = $1' , [username]);
+var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 query.on('row', function(row) {
   console.log('user "%s" is %s years old lolololol' , row.username, row.password);
   if(username == row.username && password == row.password){ console.log ("yess");}
@@ -106,7 +106,7 @@ function findOne(username , fn) {
 	//b.push(row);
 	var user = new Object();
 	var randomnumber=Math.floor(Math.random()*11);
-	user.username = row.username; user.password = row.password; user.id =randomnumber;
+	user.username = row.username; user.password = row.password; user.id =4;
 	return  fn(null, user);
 	
   });
@@ -145,10 +145,10 @@ passport.deserializeUser(function(username, done) {
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	//if(password(username, password) == false){return done(null, false, { message: 'Invalid password' });}
     if ( password != user.password){ console.log("LLLL");   return done(null, false, { message: 'Invalid password' });}
-	//else { 
+	else { 
 	console.log(user.username + " ----------- " + user.password);
 	return done(null , user);
-    //}
+	}
   });
  //});
 }));
