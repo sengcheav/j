@@ -46,18 +46,20 @@ app.get('/' , function(req, res){
   var u = "sengcheav@yahoo.com";
   var pass = "pass";
  app.get('/3', function (req,res){console.log("checking database");
- 	client.query('INSERT INTO login_database12 (username, password) VALUES($1, $2)',
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[u, pass]);
 //res.end();	
  }); 
-  
+ 
+
+ 
 function signup(username, password){
-	var query = client.query('SELECT * FROM login_database12 WHERE username = $1' , [username]);
+	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 	query.on('row', function(row) {
 		console.log("Username exist");
 		//res.send(404);
 	});
- 	client.query('INSERT INTO login_database12 (username, password) VALUES($1, $2)',
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[username, password]);
 	res.send(200);
 }  
@@ -67,7 +69,7 @@ function password(username, password){
 	console.log("checking password");
 //var g = [];
 var b = []; 
-var query = client.query('SELECT * FROM login_database12 WHERE username = $1' , [username]);
+var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 query.on('row', function(row) {
   console.log('user "%s" is %s years old lolololol' , row.username, row.password);
   if(username == row.username && password == row.password){ console.log ("yess");}
@@ -97,7 +99,7 @@ function findOne(username , fn) {console.log("findone  ++");
 
  // var b =
 // /*
- var query = client.query('SELECT * FROM login_database12 WHERE username = $1' , [username]);
+ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
 	  console.log("inside");
 	
@@ -108,7 +110,7 @@ function findOne(username , fn) {console.log("findone  ++");
 	return  fn(null, user);
 	
   });
-  return fn(null, user);
+//   return fn(null, null);
 // */ 
   
   
