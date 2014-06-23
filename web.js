@@ -108,7 +108,7 @@ function findOne(username , fn) {console.log("findone  ++");
 	return  fn(null, user);
 	
   });
-  return fn(null, null);
+  return fn(null, user);
 // */ 
   
   
@@ -128,7 +128,7 @@ passport.deserializeUser(function(username, done) {
 
  passport.use(new LocalStrategy( function(username, password, done) {
    //process.nextTick(function () {
-	findOne( username, function(err, user) { //console.log(user.username + " should be " + user.password);
+	findOne( username, function(err, user) { console.log(user.username + " should be " + user.password);
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	//if(password(username, password) == false){return done(null, false, { message: 'Invalid password' });}
