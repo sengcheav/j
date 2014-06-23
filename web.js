@@ -152,6 +152,7 @@ app.post('/login', function(req, res, next) {
       req.session.messages =  [info.message];
       console.log("nooooo"); 
 	  return res.redirect('/')
+	  
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
