@@ -31,6 +31,9 @@
 		    <div>
 		        <input type="submit" value="Log In" id ="button"/>
 		    </div>
+		     <div>
+		        <input type="submit" value="Log out" id ="button2"/>
+		    </div>
 		</form> 
 		 
 <script>
@@ -42,7 +45,17 @@ $(document).ready(function() {
 	$.ajaxSetup ({ cache: false
 	});
 	
-	$("#sendButton").bind("click", function (event, ui){
+	$("#button").bind("click", function (event, ui){
+		//var url ="http://stark-sea-8865.herokuapp.com/3";
+		//var username = $("#name").val();
+		//var password =$("#password").val();
+		
+		//$.post(url, username, passworld, function()'json');
+		if(!"#name"){ alert("please enter your username");}
+		else if(!"#password"){ alert("please enter your password");}
+		else { $("formid").submit();}
+	});
+	$("#button2").bind("click", function (event, ui){
 		//var url ="http://stark-sea-8865.herokuapp.com/3";
 		//var username = $("#name").val();
 		//var password =$("#password").val();
