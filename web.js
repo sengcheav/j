@@ -50,14 +50,12 @@ app.get('/' , function(req, res){
 	[u, pass]);
 //res.end();	
  }); 
- 
-
- 
+  
 function signup(username, password){
 	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
 	query.on('row', function(row) {
 		console.log("Username exist");
-		
+		res.send(404);
 	});
  	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
 	[username, password]);
@@ -101,25 +99,35 @@ function findOne(username , fn) {console.log("findone  ++");
 // /*
  var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
   query.on('row', function(row ) {
-	  console.log("inside findOne function ");
+	  console.log("inside find one funtion");
 	
     console.log('user "%s" is %s years old', row.username, row.password);
 	//b.push(row);
 	var user = new Object();
 	var randomnumber=Math.floor(Math.random()*11);
-	user.username = row.username; user.password = row.password; user.id =randomnumber; 
+	user.username = row.username; user.password = row.password; user.id =randomnumber;
 	return  fn(null, user);
 	
   });
-//   return fn(null, null);
+  return fn(null, null);
 // */ 
   
   
   
-}
+};
+
+
+
+
+
+	
+
+
+
+
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user.username );
 });
 
 passport.deserializeUser(function(username, done) {
@@ -130,16 +138,15 @@ passport.deserializeUser(function(username, done) {
 });
 
  passport.use(new LocalStrategy( function(username, password, done) {
-  
    //process.nextTick(function () {
-	findOne( username, function(err, user) { console.log(user.username + " should be " + user.password);
+	findOne( username, function(err, user) { //console.log(user.username + " should be " + user.password);
     if (err) { console.log ( "err "); return done(err); }
     if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
 	//if(password(username, password) == false){return done(null, false, { message: 'Invalid password' });}
-    if ( password != user.password){ console.log("LLLL"); return done(null, false, { message: 'Invalid password' });}
-   else { console.log(user.username + " ----------- " + user.password);
+    if ( password != user.password){ console.lgo("LLLL");   return done(null, false, { message: 'Invalid password' });}
+	else { //console.log(user.username + " ----------- " + user.password);
 	return done(null , user);
-   }
+    }
   });
  //});
 }));
@@ -150,10 +157,9 @@ app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
     if (err) { return next(err) }
     if (!user) {
-     // req.session.messages =  [info.message];
+      req.session.messages =  [info.message];
       console.log("nooooo"); 
 	  return res.redirect('/')
-	  
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
@@ -163,14 +169,12 @@ app.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 */
-///*
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/hot',
+  passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login',
                                    failureFlash: true })
+);
 
-  );
-//*/
 app.get('/logout', function(req, res){
   req.logout();
   console.log("out");
@@ -180,15 +184,14 @@ app.get('/logout', function(req, res){
 
 
 app.listen(port, function() {
-//   console.log('Listening on:', port);
+  console.log('Listening on:', port);
 });
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
 //   the request is authenticated (typically via a persistent login session),
 //   the request will proceed.  Otherwise, the user will be redirected to the
 //   login page.
-
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  else {res.redirect('/login');}
+  res.redirect('/login');
 }

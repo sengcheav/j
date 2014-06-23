@@ -1,80 +1,197 @@
+var express = require('express')
+ //, http =requrie('http')
+  , app = express()//.createServer(express.logger())
+  , pg = require('pg').native
+  ,fs = require('fs')
+  ,http = require ('http') 
+  , passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy
+  , flash = require('connect-flash') //flash message
 
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta name="viewport" content="width=320 user-scalable=no" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>yo</title>
-   
+  , start = new Date()
+  , connectionString = process.env.DATABASE_URL
+  , port = process.env.PORT || 3000
+  , client;
+ //var app1 = express(); 
+//var app = http.createServer(app1);
+client = new pg.Client(connectionString);
+client.connect();
+//THis need tobe in ORDER otherwise it wont work
+app.use(express.static(__dirname));
 
-    <!-- Jquery and Jquery mobile -->
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js">
-    </script>
+app.use(express.cookieParser()); //just for auth
+ 
+app.use(express.bodyParser());
 
-    <style>
+// for passport
 
-    </style>
-</head>
- <body>
- 	  <div role="main" class="ui-content">
-		<form action="/login" id= "formid" method="post">
-		    <div>
-		        <label>Username:</label>
-		        <input type="text" name="username" id="name" placeholder="Username"/>
-		    </div>
-		    <div>
-		        <label>Password:</label>
-		        <input type="password" name="password" id= "password" placeholder="Password"/>
-		    </div>
-		    <div>
-		        <input type="submit" value="Log In" id ="button"/>
-		    </div>
-		     
-		</form> 
-		<form action="/logout" id= "formidd" method="get">
-		 <div>
-		        <input type="submit" value="Log out" id ="button2"/>
-		    </div>
-		 </form> 
-<script>
+app.use(express.session({ secret: 'SECRET' ,maxage:60000}));
+app.use(passport.initialize());
+app.use(passport.session());
+// // if not able to serve up a static file try and handle as REST invocation
+app.use(flash());
+app.use(app.router);
 
 
 
-$(document).ready(function() {
-	
-	$.ajaxSetup ({ cache: false
+app.get('/' , function(req, res){
+   res.sendfile('index.html');
+     
+     
+     
+  });
+  
+  
+  
+  var u = "sengcheav@yahoo.com";
+  var pass = "pass";
+ app.get('/3', function (req,res){console.log("checking database");
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
+	[u, pass]);
+//res.end();	
+ }); 
+  
+function signup(username, password){
+	var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
+	query.on('row', function(row) {
+		console.log("Username exist");
+		res.send(404);
 	});
+ 	client.query('INSERT INTO login_database1 (username, password) VALUES($1, $2)',
+	[username, password]);
+	res.send(200);
+}  
+
+
+function password(username, password){
+	console.log("checking password");
+//var g = [];
+var b = []; 
+var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
+query.on('row', function(row) {
+  console.log('user "%s" is %s years old lolololol' , row.username, row.password);
+  if(username == row.username && password == row.password){ console.log ("yess");}
+  return true;
+  
+  
+});
+	//if(password == query.password){ return true;}
+	return false;
 	
-	$("#button").bind("click", function (event, ui){
-		//var url ="http://stark-sea-8865.herokuapp.com/3";
-		//var username = $("#name").val();
-		//var password =$("#password").val();
-		
-		//$.post(url, username, passworld, function()'json');
-		if(!"#name"){ alert("please enter your username");}
-		else if(!"#password"){ alert("please enter your password");}
-		else { $("formid").submit();}
-	});
-	$("#button2").bind("click", function (event, ui){
-		//var url ="http://stark-sea-8865.herokuapp.com/3";
-		//var username = $("#name").val();
-		//var password =$("#password").val();
-		
-		//$.post(url, username, passworld, function()'json');
-		
-		 $("formidd").submit();
-	});
+};
+ 
 
- } )
+function findOne(username , fn) {console.log("findone  ++");
 
-
-</script>		 
-		 
-	 </body>	 </html>
-		 
-		  
-		  
-	  
+/*
+ fn (null , function(user){
+    var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
+     query.on('row', function(row ) {
+   	  console.log("inside");
 	
+       console.log('user "%s" is %s years old', row.username, row.password);
+   	//b.push(row);
+   	var user = new Object();
+   	user.username = row.username; user.password = row.password;});
+})*/
+
+ // var b =
+// /*
+ var query = client.query('SELECT * FROM login_database1 WHERE username = $1' , [username]);
+  query.on('row', function(row ) {
+	  console.log("inside find one funtion");
+	
+    console.log('user "%s" is %s years old', row.username, row.password);
+	//b.push(row);
+	var user = new Object();
+	var randomnumber=Math.floor(Math.random()*11);
+	user.username = row.username; user.password = row.password; user.id =randomnumber;
+	return  fn(null, user);
+	
+  });
+  return fn(null, null);
+// */ 
+  
+  
+  
+};
+
+
+
+
+
+	
+
+
+
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.username );
+});
+
+passport.deserializeUser(function(username, done) {
+   findOne( username//{ email: email } 
+	   , function (err, user) {
+    done(err, user);
+  });
+});
+
+ passport.use(new LocalStrategy( function(username, password, done) {
+   //process.nextTick(function () {
+	findOne( username, function(err, user) { //console.log(user.username + " should be " + user.password);
+    if (err) { console.log ( "err "); return done(err); }
+    if (!user) { console.log ( "!user "); return done(null, false, { message: 'Unknown user ' + username }); }
+	//if(password(username, password) == false){return done(null, false, { message: 'Invalid password' });}
+    if ( password != user.password){ console.lgo("LLLL");   return done(null, false, { message: 'Invalid password' });}
+	else { //console.log(user.username + " ----------- " + user.password);
+	return done(null , user);
+    }
+  });
+ //});
+}));
+
+//app.post('/signUp')
+/*
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {  console.log ("user"+ user + info);
+    if (err) { return next(err) }
+    if (!user) {
+      req.session.messages =  [info.message];
+      console.log("nooooo"); 
+	  return res.redirect('/')
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+	  console.log("in");
+      return res.redirect('/');
+    });
+  })(req, res, next);
+});
+*/
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
+
+app.get('/logout', function(req, res){
+  req.logout();
+  console.log("out");
+  res.redirect('/');
+});
+
+
+
+app.listen(port, function() {
+  console.log('Listening on:', port);
+});
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed.  Otherwise, the user will be redirected to the
+//   login page.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
