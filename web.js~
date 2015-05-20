@@ -95,12 +95,12 @@ function findOne(username , fn) {console.log("findone  ++");
 	var user = new Object();
 	var randomnumber=Math.floor(Math.random()*11);
 	user.username = row.username; user.password = row.password; user.id =randomnumber; 
-	return  fn(null, user);
-
+	//return  fn(null, user);
+	return user ; 
   });
-   return fn(null, null);
+   //return fn(null, null);
 // */ 
-  
+  return null ;
   
   
   
