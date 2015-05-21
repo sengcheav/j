@@ -28,7 +28,7 @@ app.use(app.router);
 
 
 app.get('/' , function(req, res){
-   res.render('index.html');
+   res.send('index.html');
 });
   
 var u = "sengcheav@yahoo.com";
